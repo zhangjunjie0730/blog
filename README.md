@@ -2,7 +2,7 @@
 
 A document of Deep understanding of JavaScript
 
-<img src="./assets/Avatar.png" alt="Avata" style="zoom:200%;" />
+<img src="./assets/Avatar.png" alt="Avata" style="zoom:200%; vertical-align:middle" />
 
 ## Javascript 原理学习
 
