@@ -1,10 +1,7 @@
-<h1 align="center">Blog</h1>
-
-
-
-<div align="center">
-  <img src="./assets/Avatar.png" style="max-width:100%;" />
-</div>
+<h1 align="center" style="border-bottom: none;">
+    <img style="vertical-align: middle; width: 80px" src="./assets/Avatar.png"/>
+    <span>CodeLife</span>
+</h1>
 
 
 ## Javascript 原理学习
