@@ -1,6 +1,6 @@
-#  blog
+<h1 align="center">Blog</h1>
 
-A document of Deep understanding of JavaScript
+
 
 <div align="center">
   <img src="./assets/Avatar.png" style="max-width:100%;" />
