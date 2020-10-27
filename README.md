@@ -16,7 +16,7 @@
 <br>
 
 
-## Javascript 原理学习
+## Javascript
 
 ### 作用域闭包
 
