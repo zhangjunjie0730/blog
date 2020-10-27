@@ -1,6 +1,5 @@
-<div align="center" style="border-bottom: none; font-size: 2em; font-weight: bold;">
-    <img style="vertical-align: middle; zoom: 10%" src="./assets/Avatar.png"/>
-    <span>CodeLife</span>
+<div align="center">
+    <img src="./assets/Avatar.png"/>
 </div>
 
 
