@@ -2,6 +2,8 @@
 
 A document of Deep understanding of JavaScript
 
+<img src="./assets/Avatar.png" alt="Avata" style="zoom:200%;" />
+
 ## Javascript 原理学习
 
 ### 作用域闭包
