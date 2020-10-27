@@ -1,10 +1,11 @@
-# blog
+#  blog
 
 A document of Deep understanding of JavaScript
 
+<div align="center">
+  <img src="./assets/Avatar.png" style="max-width:100%;" />
+</div>
 
-
-<img src="./assets/Avatar.png" alt="Avatar" style="zoom:200%" div align=center />
 
 ## Javascript 原理学习
 
