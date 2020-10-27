@@ -2,7 +2,9 @@
 
 A document of Deep understanding of JavaScript
 
-<img src="./assets/Avatar.png" alt="Avata" style="zoom:200%; text-align: center" />
+
+
+<img src="./assets/Avatar.png" alt="Avatar" style="zoom:200%" div align=center />
 
 ## Javascript 原理学习
 
