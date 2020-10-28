@@ -144,7 +144,15 @@ var detectCycle = function(head) {
 ### 思路2：快慢指针
 
 **思路较复杂**
-![image](https://user-images.githubusercontent.com/68802498/97252379-c9f43680-1844-11eb-9edf-0ba8d01349e9.png)
+
+
+
+![image](ListNode.assets/image-20201028001011722.png)
+
+
+
+
+
 用快慢指针来进行迭代，如果能相遇表示链表有环。但要注意从相遇点推导出入环点的位置。
 
 -  `fast ` 走过的距离时 `slow ` 的2倍：a+n(b+c)+b=2(a+b)
