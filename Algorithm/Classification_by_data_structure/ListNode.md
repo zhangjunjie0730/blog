@@ -8,6 +8,31 @@
 
 
 
+# 链表迭代递归套路框架：
+
+```js
+function ListNode(val){
+  this.next = null;
+  this.val = val;
+}
+// 迭代方法
+function traverse(head){
+  for(let p = head; p !== null ; p = p.next ){
+    // 迭代访问p.val进行操作
+  }
+}
+
+// 递归方法
+function traverse(head){
+  // 递归访问head.val
+  traverse(head.next)
+}
+```
+
+
+
+
+
 # 反转链表题型
 
 ## 1. 反转单链表 
