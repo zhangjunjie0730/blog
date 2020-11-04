@@ -248,10 +248,10 @@ class Solution {
   public int coinChange(int[] coins, int amount) {
     int[] dp = new int[amount + 1];
     Arrays.fill(dp, amount + 1);
-    dp[0] = 0;
+    dp[0] = 0; // 关键
     for(int i = 0;i<dp.length;i++){
       for(int coin : coins){
-        if(i-coin < 0) continue;
+        if(i-coin < 0) continue; // 关键
         dp[i] = Math.min(dp[i], dp[i-coin] + 1);
       }
     }
@@ -264,7 +264,7 @@ class Solution {
 
 ## 2. 进阶解析
 
-### 3.1 最优子结构详解
+**最优子结构详解**
 
 首先，要明确之前说的：**想满足最优子结，子问题之间必须互相独立**。
 
@@ -274,15 +274,17 @@ class Solution {
 
 找最优子结构的过程，其实就是证明状态转移方程正确性的过程，方程符合最优子结构就可以写暴力解了，写出暴力解就可以看出有没有重叠子问题了，**有则优化，无则 OK**。这也是套路，经常刷题的朋友应该能体会。
 
-#### 例题
 
-题目：
+
+### 题目1：[键盘打印最大值](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484469&idx=1&sn=e8d321c8ad62483874a997e9dd72da8f&chksm=9bd7fa3daca0732b316aa0afa58e70357e1cb7ab1fe0855d06bc4a852abb1b434c01c7dd19d6&scene=21#wechat_redirect)
 
 ![image-20201101173615731](DynamicProgramming.assets/image-20201101173615731.png)
 
 我们穷举呗，对于每次按键，我们可以穷举四种可能，**很明显就是一个动态规划问题**。
 
-##### 思路一：
+
+
+**思路一：自上而下**
 
 分析一下：**对于动态规划问题，首先要明白有哪些「状态」，有哪些「选择」**。
 
@@ -308,48 +310,351 @@ dp(n - 2, a_num, a_num)        # C-A C-C
 同时消耗 2 个操作数
 ```
 
+详细代码：
 
+**这其实就是自上而下的过程。我们从递归树顶端来看。**消耗一个操作 => n-1，相应 a_num 和 copy 发生对应变化，剩下的交给递归！
 
-
-
-
-
-### 3.2 dp 数组的遍历方向
-
-我相信读者做动态规划问题时，肯定会对 `dp` 数组的遍历顺序有些头疼。我们拿二维 `dp` 数组来举例，有时候我们是正向遍历：
-
-```c++
-int[][] dp = new int[m][n];
-for (int i = 0; i < m; i++)
-    for (int j = 0; j < n; j++)
-        // 计算 dp[i][j]
-```
-
-有时候我们反向遍历：
-
-```c++
-for (int i = m - 1; i >= 0; i--)
-    for (int j = n - 1; j >= 0; j--)
-        // 计算 dp[i][j]
-```
-
-有时候可能会斜向遍历：
-
-```c++
-// 斜着遍历数组
-for (int l = 2; l <= n; l++) {
-    for (int i = 0; i <= n - l; i++) {
-        int j = l + i - 1;
-        // 计算 dp[i][j]
-    }
+```js
+// n:剩余按键次数；a_num:当前屏幕上A的数量；copy：剪切板中A的数量
+function maxA(N) {
+  function dp(n, a_num, copy) {
+    if (n <= 0) return a_num; // base case
+    return Math.max(
+      dp(n - 1, a_num + 1, copy),
+      dp(n - 1, a_num + copy, copy),
+      dp(n - 2, a_num, a_num)
+    );
+  }
+  return dp(N, 0, 0);
 }
 ```
 
-你只要把住两点就行了：
 
-**1. 遍历的过程中，所需的状态必须是已经计算出来的**。
 
-**2. 遍历的终点必须是存储结果的那个位置**。
+**思路二：dp 数组**
+
+注意：这里的状态有三个，dp 数组得写成三维，这样复杂度变成了 O(N^3)。所以这么定义肯定不好。
+
+```js
+dp[n][a_num][copy]
+# 状态的总数（时空复杂度）就是这个三维数组的体积
+```
+
+所以整体思路需要换一下。继续走流程，「选择」肯定还是那 4 个，但是这次我们只定义一个「状态」，也就是剩余的敲击次数 `n`。
+
+这个算法基于这样一个事实，**最优按键序列一定只有两种情况**：
+
+要么一直按`A`：A,A,…A（当 N 比较小时）。
+
+要么是这么一个形式：A,A,…C-A,C-C,C-V,C-V,…C-V（当 N 比较大时）。
+
+```js
+function maxA(N) {
+  let dp = new Array(N + 1); // 每次按键造成下一次状态改变，所以会错位一下
+  dp[0] = 0;
+  for (let i = 1; i < N + 1; i++) {
+    dp[i] = dp[i - 1] + 1; // 只按A的情况
+    for (let j = 2; j < i; j++) {
+      dp[i] = Math.max(dp[i], dp[j - 2] * (i - j + 1));
+    }
+  }
+  return dp[N];
+}
+```
+
+![image-20201104113255993](DynamicProgramming.assets/image-20201104113255993.png)
+
+这样的时间复杂度 O(N^2)，空间复杂度 O(N)。
+
+**总结：**为什么第一种思路复杂度会很高呢？因为我们复杂了子问题的个数。实际上只有两种操作，A 或者复制粘贴，第一种思考分成了三种情况，所以才会变得复杂。
+
+
+
+
+
+
+
+
+
+### 题目2：[腾讯面试题—编辑距离](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484484&amp;idx=1&amp;sn=74594297022c84952162a68b7f739133&source=41#wechat_redirect)
+
+题目：
+
+<img src="DynamicProgramming.assets/image-20201104104834550.png" alt="image-20201104104834550" style="zoom:80%;" />
+
+通过另一道题前文 [最长公共子序列]() 知道**，解决两个字符串的动态规划问题，一般都是用两个指针 `i,j `分别指向两个字符串的最后，然后一步步往前走，缩小问题的规模**。 s1 => s2 问题的思路如下：
+
+![](DynamicProgramming.assets/tencent_s1-s2.gif)
+
+1. 遇到 `s1[i] != s2[j]` 就插入 `s2[j]` 的值。
+2. 遇到 `s1[i] == s2[j]` 时候就进行跳过操作。
+3. 当 `s2` 走完的时候，把剩下 `s1` 没走完的部分都删掉就可以了。
+
+所以这道题，我们也可以类似的方法进行考虑。要注意 我们有四种操作：skip、插入、替换、删除。
+
+**注意了：这题只让你输出最小编辑距离，没让你真的走一遍进行转化，所以我们应该之操作字符串的索引才是最高效的！！！**
+
+```js
+# base case 就是i走完了s1 或者 j走完了s2
+if(s1[i] === s2[j]){
+  (skip操作);
+  i, j想前移动
+}else{
+  三选一操作
+}
+```
+
+**暴力法：穷举三选一的操作**
+
+```js
+function minDistance(s1, s2) {
+  function dp(i, j) {
+    // base case: 如果其中一个字符串走完了，就返回另一个字符串剩下的长度！因为要一个一个删除或者插入
+    // 1. s1先走完，就得把剩下的s2全插入s1中；s2先走完就把剩下的s1删除掉
+    if (i === -1) return j + 1;
+    if (j === -1) return i + 1;
+    if (s1[i] === s2[j]) return dp(i - 1, j - 1); // skip操作
+    return Math.min(
+      dp(i, j - 1) + 1, // 插入操作
+      dp(i - 1, j) + 1, // 删除
+      dp(i - 1, j - 1) + 1 // 替换
+    );
+  }
+  return dp(s1.length - 1, s2.length - 1);
+}
+```
+
+思考一下，存在哪些重复的子问题呢？
+
+```js
+def dp(i, j):
+    dp(i - 1, j - 1) #1
+    dp(i, j - 1)     #2
+    dp(i - 1, j)     #3
+```
+
+比如 `dp(i, j) -> #1 `和 `dp(i,j)->#2->#3 `。一旦发现一条重复路径，就说明存在巨量重复路径，也就是重叠子问题。
+
+**加备忘录**可以减少重复计算。
+
+**DP table解法：**
+
+![image-20201104145000578](DynamicProgramming.assets/image-20201104145000578.png)
+
+**DP 数组中存什么？**交换的次数。
+
+**base case：**有了最长公共子序列的题目可知，dp 数组初始化应该是 [m+1] [n+1]。
+
+**状态转移：**还是上面的几种操作。
+
+**因为js没有专门针对二维数组的API，所以初始化过程比较繁琐。**
+
+```js
+function minDistance(s1, s2) {
+  const m = s1.length;
+  const n = s2.length;
+  let dp = [];
+  for (let i = 0; i < m + 1; i++) {
+    // 多一组用来存放空串
+    dp[i] = [];
+    for (let j = 0; j < n + 1; j++) {
+      dp[i][j] = 0;
+    }
+  } // base case:初始化一个m+1*n+1的二维数组
+  for (let i = 1; i <= m; i++) {
+    dp[i][0] = i;
+  }
+  for (let j = 1; j <= n; j++) {
+    dp[0][j] = j;
+  }
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (s1[i - 1] === s2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1]; // 等于就skip
+      } else {
+        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 1);
+      }
+    }
+  }
+  return dp[m][n];
+}
+```
+
+**思考：**一般来说，处理两个字符串的动态规划问题，都是按本文的思路处理，建立 DP table。为什么呢，因为易于找出状态转移的关系，比如编辑距离的 DP table：
+
+![image-20201104151320506](DynamicProgramming.assets/image-20201104151320506.png)
+
+
+
+
+
+### 题目3：[1143 最长公共子序列](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484486&amp;idx=1&amp;sn=0bdcb94c6390307ea32427757ec0072c&source=41#wechat_redirect)
+
+题目：
+
+```js
+输入: str1 = "abcde", str2 = "ace" 
+输出: 3  
+解释: 最长公共子序列是 "ace"，它的长度是 3
+```
+
+为啥这个问题就是动态规划来解决呢？因为子序列类型的问题，穷举出所有可能的结果都不容易，而动态规划算法做的就是穷举 + 剪枝，它俩天生一对儿。**所以可以说只要涉及子序列问题，十有八九都需要动态规划来解决，往这方面考虑就对了。**
+
+![image-20201104120501634](DynamicProgramming.assets/image-20201104120501634.png)
+
+用两个指针`i`和`j`从后往前遍历`s1`和`s2`，如果`s1[i]==s2[j]`，那么这个字符**一定在`lcs`中**；否则的话，`s1[i]`和`s2[j]`这两个字符**至少有一个不在`lcs`中**，需要丢弃一个。先看一下递归解法，比较容易理解：
+
+**注意：它也是只要求出子序列的长度，所以操作索引就可以，不用输出具体 lcs 的值**
+
+**暴力递归方法：**
+
+```js
+function longestCommonSubsequence(str1, str2) {
+	function dp(i,j){
+    // # base case:如果从后往前遍历到头了
+    if(i === -1||j === -1) {
+      return 0;
+    }
+    // # 找到了一个lcs之后要继续递归找，并且数量+1
+    if(text1[i] === text2[j]) {
+      return dp(i-1, j-1)+1;
+    }else{
+      // # 接下来的扫描中，谁能让lcs最长就听谁的
+      return Math.max(dp(i-1, j), dp(i, j-1));
+    }
+  }
+  return dp(text1.length-1, text2.length-1);
+};
+```
+
+**用 DP table 优化**
+
+首先思考一下 DP 数组里面存点什么呢？**应该存转移的状态。**这种状态可以通过子问题一个一个按条件迭加上去。
+
+其次，DP 数组应该是自下而上的迭代。所以应该是把字符串拆分成一个一个字符来逐个判断。可以画出这个 DP table。
+
+![image-20201104134202401](DynamicProgramming.assets/image-20201104134202401.png)
+
+这个表的含义是：对于 `s1[1..i]` 和 `s2[1..j]`，它们的 LCS 长度是 `dp[i][j]`。d[2] [4] 的含义就是：对于 `"ac" `和 `"babc"`，它们的 LCS 长度是 2。
+
+**定义 base case：**我们专门让索引为 0 的行和列表示空串，`dp[0][..]`和`dp[..][0]`都应该初始化为 0，这就是 base case。比如说，按照刚才 dp 数组的定义，`dp[0][3]=0`的含义是：对于字符串`""`和`"bab"`，其 LCS 的长度为 0。因为有一个字符串是空串，它们的最长公共子序列的长度显然应该是 0。
+
+**找状态转移方程：**就如暴力递归同样的思路，如果相等，就在前一个的基础上 +1 就好。
+
+```js
+function longestCommonSubsequence(text1, text2) {
+  // 构建一个二维的 DP table
+  const m = text1.length;
+  const n = text2.length;
+  let dp = [];
+  for (let i = 0; i < m + 1; i++) {
+    // 多一组用来存放空串
+    dp[i] = [];
+    for (let j = 0; j < n + 1; j++) {
+      dp[i][j] = 0;
+    }
+  } // base case:初始化一个m+1*n+1的二维数组
+  // 进行状态转移
+  for (let i = 1; i < m + 1; i++) {
+    for (let j = 1; j < n + 1; j++) {
+      if (text1[i - 1] === text2[j - 1]) {
+        dp[i][j] = 1 + dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+  return dp[m][n];
+}
+```
+
+### 题目4：[最长递增子序列](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484498&amp;idx=1&amp;sn=df58ef249c457dd50ea632f7c2e6e761&source=41#wechat_redirect)
+
+题目：
+
+![image-20201104152002939](DynamicProgramming.assets/image-20201104152002939.png)
+
+注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。
+
+![](DynamicProgramming.assets/max_increment_son_list.gif)
+
+**dp 数组：**这里是存储，每一个索引地方，比他大的那个子串。例如 `dp[4]` 应该是只有 1、2，所以存入2。
+
+**状态转移：**依靠前面序列的字串长度，如果有比它小的值，就+1。
+
+```js
+var lengthOfLIS = function(nums) {
+  if(nums.length===0) return 0;
+  let dp= new Array(nums.length).fill(1); // 最小是1，它本身
+  for(let i=0;i<dp.length;i++){
+    for(let j =0;j<i;j++){
+      if(nums[j]<nums[i]) dp[i] = Math.max(dp[i], dp[j]+1);
+    }
+  }
+  // 找到dp数组中的最大值
+  let res=1;
+  for(let num of dp){
+    res=Math.max(num, res)
+  }
+  return res
+};
+```
+
+
+
+### 题目5：[动态规划之正则表达式](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484513&amp;idx=1&amp;sn=e5fc3cce76c1b916195e1793122c28b8&source=41#wechat_redirect)
+
+题目：
+
+![image-20201104164654703](DynamicProgramming.assets/image-20201104164654703.png)
+
+我们采用循序渐进的思路，首先，两个字符串是否相同怎么写？
+
+```js
+function isMatch(str1, str2){
+  if(str1.length !== str2.length) return false;
+  for(let i=0;i<str1.length;i++){
+    if(str1[i] !== str2[i]) return false
+  }
+  return true
+}
+```
+
+这很容易理解。我们继续改写成递归的写法。理解这个递归才能进行下一步
+
+```js
+function isMatch(str1, str2){
+  if(str2.length===0) return str1.length===0;
+  first_match = str1.length!==0 && str1[0]===str2[0];
+  return first_match && isMatch(str1.slice(1), str2.slice(1));
+}
+```
+
+**处理点号「.」通配符：**
+
+点号可以匹配任意一个字符，万金油嘛，其实是最简单的。
+
+```js
+function isMatch(text, pattern){
+  if(pattern.length===0) return text.length===0;
+  first_match = text.length
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
