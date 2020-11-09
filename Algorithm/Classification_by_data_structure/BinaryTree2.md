@@ -57,7 +57,7 @@ function countNode(root){
 
 [原文1](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247487126&idx=1&sn=4de13e66397bc35970963c5a1330ce18&chksm=9bd7f09eaca0798853c41fba05ad5fa958b31054eba18b69c785ae92f4bd8e4cc7a2179d7838&scene=21#wechat_redirect)  [原文2](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247487270&idx=1&sn=2f7ad74aabc88b53d94012ceccbe51be&chksm=9bd7f12eaca078384733168971147866c140496cb257946f8170f05e46d16099f3eef98d39d9&mpshare=1&scene=1&srcid=1029WszdVQMGPx9PC8LBwwCK&sharer_sharetime=1603965912743&sharer_shareid=df5934c076155773d71076bd56afb49a&key=71834269ba733bc9e1008be4287fa785e76dad923b03bffb50d88f2fe7124e346d6fb106d515fe27568cb04078b51fcae96e76fe69e2f160603ac2682ce9768795b50b5be1f84511f82e21b7e05bb4740249832c25109dda87245e2fd3f9622da85d914702e0f7c0b918d2f657913b26498a431f2927caeb51206ff77cc23053&ascene=1&uin=NzAwNDM3NTIx&devicetype=Windows+10+x64&version=6300002f&lang=zh_CN&exportkey=AQ3KqgWJG3o6DbbNRqK08cY%3D&pass_ticket=T0ulhMnfnzYStZIebbnSyz5RqB4eXK2VLn85j0NGdyZcy6aaM7bgVUgfrOqbImx6&wx_header=0)
 
-- [226 翻转二叉树]()
+- [226 翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/)
 
 - [116 填充二叉树节点的右侧指针](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
 - [114 二叉树展开为链表]()
@@ -143,6 +143,7 @@ function flatten(root){
     p = p.right
   }; // 采用链表迭代方式
   p.right = right;
+  return root;
 }
 ```
 

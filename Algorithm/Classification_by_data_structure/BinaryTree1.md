@@ -202,13 +202,14 @@ function deleteNode(root, key){
   if(!root) return null;
   if(root.val === key){
     if(!root.left && !root.right) return null; // 1
+    if(root.left && root.right){
+    	const minNode = getMin(root.right);
+  		root.val = minNode.val;
+ 			root.right = deleteNode(root.right, minNode.val); // 3
+    }
     
     if(!root.left) return root.right;
 		if(!root.right) return root.left; // 2
-    
-    const minNode = getMin(root.right);
-  	root.val = minNode.val;
- 		root.right = deleteNode(root.right, minNode.val); // 3
     
   } else if(root.val > key){
     root.left = deleteNode(root.left, key)
