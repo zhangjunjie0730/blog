@@ -307,26 +307,26 @@ async function request() {
 
 		1）onRejected 函数：失败的回调函数 (reason) => {}。**then() 的语法糖**，相当于 then(undefined, onRejected)
 		
-		```js
-		new Promise((resolve, reject) => { // excutor执行器函数
-		 setTimeout(() => {
-		   if(...) {
-		     resolve('成功的数据') // resolve()函数
-		   } else { 
-		     reject('失败的数据') //reject()函数
-		    }
-		 }, 1000)
-		}).then(
-		 value => { // onResolved()函数
-		  console.log(value)
-		}
-		).catch(
-		 reason => { // onRejected()函数
-		  console.log(reason)
-		}
-		)
-		```
-		
+	```js
+	new Promise((resolve, reject) => { // excutor执行器函数
+	 setTimeout(() => {
+	   if(...) {
+	     resolve('成功的数据') // resolve()函数
+	   } else { 
+	     reject('失败的数据') //reject()函数
+	    }
+	 }, 1000)
+	}).then(
+	 value => { // onResolved()函数
+	  console.log(value)
+	}
+	).catch(
+	 reason => { // onRejected()函数
+	  console.log(reason)
+	}
+	)
+	```
+	
 4. `Promise.resolve` 方法：Promise.resolve(value)
 
 5. `Promise.reject` 方法：Promise.resolve(reason)     reason：失败的原因。返回一个失败的 promise 对象
@@ -673,7 +673,7 @@ new Promise((resolve, reject) => {
 
 相当于这种写法：
 
-```
+```js
 new Promise((resolve, reject) => {
    //resolve(1)
    reject(1)
@@ -712,7 +712,7 @@ new Promise((resolve, reject) => {
 
 办法：在回调函数中返回一个 pending 状态的 promise 对象
 
-```
+```js
 new Promise((resolve, reject) => {
    //resolve(1)
    reject(1)
@@ -748,7 +748,7 @@ new Promise((resolve, reject) => {
 
 为了在 catch 中就中断执行，可以这样写：
 
-```
+```js
 new Promise((resolve, reject) => {
    //resolve(1)
    reject(1)
