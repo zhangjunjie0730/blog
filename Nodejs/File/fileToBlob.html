@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FileToBlob｜文件上传</title>
+  </head>
+  <body>
+    <input type="file" id="fileInput" />
+    <button id="transBtn">File to Blob</button>
+    <script>
+      const fileInput = document.querySelectorAll('#fileInput')[0];
+      const transBtn = document.querySelector('#transBtn');
+
+      function fileToBlob(file, callback) {
+        const type = file.type;
+        const reader = new FileReader();
+        reader.onload = e => {
+          const blob = new Blob([e.target.result], { type });
+          if (typeof callback === 'function') callback(blob);
+          else console.log('blob', blob);
+        };
+        reader.readAsDataURL(file);
+      }
+
+      transBtn.addEventListener('click', e => {
+        e.preventDefault();
+        const _file = fileInput.files[0];
+        fileToBlob(_file, blob => console.log('blob', blob));
+      });
+    </script>
+  </body>
+</html>

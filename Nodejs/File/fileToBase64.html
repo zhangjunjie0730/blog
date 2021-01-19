@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File转base64｜图片预览</title>
+  </head>
+  <body>
+    <input type="file" id="fileInput" multiple />
+    <button id="transBtn">File 转 base64</button>
+    <img src="" alt="" id="img" />
+    <script>
+      function fileToBase64(file, callback) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          if (typeof callback === 'function') callback(e.target.result);
+          else console.log('我是base64:', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+
+      const transBtn = document.querySelector('#transBtn');
+      const img = document.querySelector('#img');
+      const files = document.querySelectorAll('#fileInput')[0];
+
+      transBtn.addEventListener('click', e => {
+        e.preventDefault();
+        const _file = files.files[0];
+        const base64 = fileToBase64(_file, base64 => {
+          console.log('base64:', base64);
+          img.setAttribute('src', base64);
+        });
+      });
+    </script>
+  </body>
+</html>

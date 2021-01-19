@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ajax上传文件</title>
+
+    <style>
+      .progress {
+        width: 300px;
+        height: 20px;
+        border: 1px solid hotpink;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .step {
+        height: 100%;
+        width: 0;
+        background: greenyellow;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" name="file" id="filesInput" multiple />
+    <input type="button" id="uploadBtn" value="上传文件" />
+    <!-- 文件上传进度预览 -->
+    <div class="progress">
+      <div class="step"></div>
+    </div>
+    <script>
+      // axios请求方式
+      // function changefile() {
+      //   const file = document.querySelectorAll('#filesInput')[0].files[0];
+      //   var forms = new FormData();
+      //   var configs = {
+      //     headers: { 'Content-Type': 'multipart/form-data' },
+      //   };
+      //   forms.append('file', file);
+
+      //   axios.post('http://127.0.0.1:3002/article/uploadTest', forms, configs).then(res => {
+      //     console.log(res);
+      //   });
+      // }
+
+      // 原生ajax请求方式
+      function uploadFile(file, callback) {
+        var forms = new FormData();
+        forms.append('file', file);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://127.0.0.1:5001/upload', true);
+        // xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+        xhr.send(forms);
+        xhr.onload = function () {
+          if (typeof callback === 'function') callback(xhr.responseText);
+          else console.log(xhr.responseText);
+        };
+        xhr.onprogress = e => {
+          let processRate = (e.loaded / e.total) * 100 + '%';
+          const step = document.querySelector('.step');
+          step.style.width = processRate;
+        };
+      }
+
+      const btn = document.querySelector('#uploadBtn');
+      btn.addEventListener('click', () => {
+        const file = document.querySelectorAll('#filesInput')[0].files[0];
+        uploadFile(file, res => console.log(res));
+      });
+    </script>
+  </body>
+</html>
