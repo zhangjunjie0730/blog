@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      html * {
+        padding: 0;
+        margin: 0;
+      }
+      .layout article div {
+        min-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 题目：假设高度已知，请写出三栏布局，其中左栏、右栏宽度各 300px，中间自适应。 -->
+    <!-- 1. float解决 -->
+    <section class="layout float">
+      <style>
+        .layout.float .left {
+          float: left;
+          width: 300px;
+          background: red;
+        }
+        .layout .right {
+          float: right;
+          width: 300px;
+          background: blue;
+        }
+        .layout .center {
+          background: yellow;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+          <h1>浮动解决方案</h1>
+        </div>
+      </article>
+    </section>
+    <!-- 2.absolute解决 -->
+    <section class="layout absolute">
+      <style>
+        .layout .left {
+          float: left;
+          width: 300px;
+          background: red;
+        }
+        .layout .right {
+          float: right;
+          width: 300px;
+          background: blue;
+        }
+        .layout .center {
+          background: yellow;
+        }
+      </style>
+      <article class="left-right-center">
+        <style>
+          .layout.absolute;
+        </style>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+          <h1>绝对定位解决</h1>
+        </div>
+      </article>
+    </section>
+  </body>
+</html>

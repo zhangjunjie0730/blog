@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container"></div>
+    <button id="changeBtn">change</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+      let data = [
+        { name: 'zjj', age: '20', address: 'beijing' },
+        { name: 'zym', age: '15', address: 'yibin' },
+        { name: 'wyy', age: '26', address: 'shanghai' },
+      ];
+      function render(data) {
+        let $container = $('.container');
+        // 清空所有内容
+        $container.html('');
+        // 拼接table
+        let $table = $('<table>');
+        $table.append($('<tr><td>name</td><td>age</td><td>address</td></tr>'));
+        data.forEach(item =>
+          $table.append(
+            $(`<tr><td>${item.name}</td><td>${item.age}</td><td>${item.address}</td></tr>`)
+          )
+        );
+        $container.append($table);
+      }
+      $('#changeBtn').click(() => {
+        data[1].age = 30;
+        data[2].address = '深圳';
+        // re-render 再次渲染
+        render(data);
+      });
+      render(data);
+    </script>
+  </body>
+</html>
