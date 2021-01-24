@@ -7,7 +7,7 @@
 <br />
 <br />
 
-|      Javascript      | React | Node.js |数据结构与算法| 数据库 |       操作系统        |         计算机网络| 工具 |项目实战| 面经 |
+|      Javascript      | React | Node.js |算法刷题笔记| 数据库 |       操作系统        |         计算机网络| 工具 |项目实战| 面经 |
 | :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
 | [:art:](#Javascript) | [:computer:](#React) | [:cloud:](#Node.js) | [:pencil2:](#数据结构与算法) | [:floppy_disk:](#数据库) |[:coffee:](#操作系统)| [:bulb:](#计算机网络) |[:wrench:](#工具)| [:watermelon:](项目实战) |[:memo:](#面经)|
 
