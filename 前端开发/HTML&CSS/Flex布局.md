@@ -2,7 +2,7 @@
 
 2009年，W3C 提出了一种新的方案----Flex 布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。
 
-![image-20201110103819450](Flex布局.assets/image-20201110103819450.png)
+![image-20201110103819450](images/image-20201110103819450.png)
 
 ```css
 .box{
@@ -31,7 +31,7 @@
 
 Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex container）。所有的子元素自动称为容器成员（flex item）。
 
-![image-20201110104206253](Flex布局.assets/image-20201110104206253.png)
+![image-20201110104206253](images/image-20201110104206253.png)
 
 容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做 `main start`，结束位置叫做 `main end`；交叉轴的开始位置叫做 `cross start`，结束位置叫做 `cross end`。
 
@@ -52,7 +52,7 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 3. `vmin` : 选取 vw 和 vh 中最小的那个。
 4. `vmax`: 选取 vw 和 vh 中最大的那个。
 
-![image-20201110172007940](Flex布局.assets/image-20201110172007940.png)
+![image-20201110172007940](images/image-20201110172007940.png)
 
 单位度量，视口宽度为100vw，高度为100vh（左侧为竖屏情况，右侧为横屏情况） 例如，在桌面端浏览器视口尺寸为650px，那么 1vw = 650 * 1% = 6.5px（这是理论推算的出，如果浏览器不支持0.5px，那么实际渲染结果可能是7px）。
 
@@ -119,10 +119,10 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 | 属性名           | 属性描述                   | 详情                                                         |
 | ---------------- | -------------------------- | ------------------------------------------------------------ |
-| `row`（默认值）  | 主轴为水平方向，起点在左端 | <img src="Flex布局.assets/image-20201110105546267.png" alt="image-20201110105546267" style="zoom:25%;" /> |
-| `row-reverse`    | 主轴为水平方向，起点在右端 | <img src="Flex布局.assets/image-20201110105626082.png" alt="image-20201110105626082" style="zoom:25%;" /> |
-| `column`         | 主轴为垂直方向，起点在上沿 | <img src="Flex布局.assets/image-20201110105655777.png" alt="image-20201110105655777" style="zoom:25%;" /> |
-| `column-reverse` | 主轴为垂直方向，起点在下沿 | <img src="Flex布局.assets/image-20201110105726521.png" alt="image-20201110105726521" style="zoom:25%;" /> |
+| `row`（默认值）  | 主轴为水平方向，起点在左端 | <img src="images/image-20201110105546267.png" alt="image-20201110105546267" style="zoom:25%;" /> |
+| `row-reverse`    | 主轴为水平方向，起点在右端 | <img src="images/image-20201110105626082.png" alt="image-20201110105626082" style="zoom:25%;" /> |
+| `column`         | 主轴为垂直方向，起点在上沿 | <img src="images/image-20201110105655777.png" alt="image-20201110105655777" style="zoom:25%;" /> |
+| `column-reverse` | 主轴为垂直方向，起点在下沿 | <img src="images/image-20201110105726521.png" alt="image-20201110105726521" style="zoom:25%;" /> |
 
 
 
@@ -138,9 +138,9 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 | 属性名          | 属性描述               | 详情                                                         |
 | --------------- | ---------------------- | ------------------------------------------------------------ |
-| `nowrap` (默认) | 不换行                 | <img src="Flex布局.assets/image-20201110105243241.png" alt="image-20201110105243241" style="zoom: 33%;" /> |
-| `wrap`          | 换行，第一行在上方     | <img src="Flex布局.assets/image-20201110105318915.png" alt="image-20201110105318915" style="zoom:33%;" /> |
-| `wrap-reverse`  | **换行，第一行在下方** | <img src="Flex布局.assets/image-20201110105332987.png" alt="image-20201110105332987" style="zoom:33%;" /> |
+| `nowrap` (默认) | 不换行                 | <img src="images/image-20201110105243241.png" alt="image-20201110105243241" style="zoom: 33%;" /> |
+| `wrap`          | 换行，第一行在上方     | <img src="images/image-20201110105318915.png" alt="image-20201110105318915" style="zoom:33%;" /> |
+| `wrap-reverse`  | **换行，第一行在下方** | <img src="images/image-20201110105332987.png" alt="image-20201110105332987" style="zoom:33%;" /> |
 
 
 
@@ -156,11 +156,11 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 | 属性名                 | 属性描述                                                     | 详情                                                         |
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `flex-start`（默认值） | 左对齐                                                       | <img src="Flex布局.assets/image-20201110110151471.png" alt="image-20201110110151471" style="zoom: 50%;" /> |
-| `flex-end`             | 右对齐                                                       | <img src="Flex布局.assets/image-20201110110221721.png" alt="image-20201110110221721" style="zoom:50%;" /> |
-| `center`               | 居中                                                         | <img src="Flex布局.assets/image-20201110110243855.png" alt="image-20201110110243855" style="zoom:50%;" /> |
-| `space-between`        | 两端对齐，项目之间的间隔都相等                               | <img src="Flex布局.assets/image-20201110110302609.png" alt="image-20201110110302609" style="zoom:50%;" /> |
-| `space-around`         | 每个项目两侧的间隔相等。**所以，项目之间的间隔比项目与边框的间隔大一倍** | <img src="Flex布局.assets/image-20201110110323472.png" alt="image-20201110110323472" style="zoom:50%;" /> |
+| `flex-start`（默认值） | 左对齐                                                       | <img src="images/image-20201110110151471.png" alt="image-20201110110151471" style="zoom: 50%;" /> |
+| `flex-end`             | 右对齐                                                       | <img src="images/image-20201110110221721.png" alt="image-20201110110221721" style="zoom:50%;" /> |
+| `center`               | 居中                                                         | <img src="images/image-20201110110243855.png" alt="image-20201110110243855" style="zoom:50%;" /> |
+| `space-between`        | 两端对齐，项目之间的间隔都相等                               | <img src="images/image-20201110110302609.png" alt="image-20201110110302609" style="zoom:50%;" /> |
+| `space-around`         | 每个项目两侧的间隔相等。**所以，项目之间的间隔比项目与边框的间隔大一倍** | <img src="images/image-20201110110323472.png" alt="image-20201110110323472" style="zoom:50%;" /> |
 
 
 
@@ -176,11 +176,11 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 | 属性名             | 属性描述                                           | 详情                                                         |
 | ------------------ | -------------------------------------------------- | ------------------------------------------------------------ |
-| `stretch` (默认值) | 如果项目未设置高度或设为auto，将占满整个容器的高度 | <img src="Flex布局.assets/image-20201110112035760.png" alt="image-20201110112035760" style="zoom:25%;" /> |
-| `flex-start`       | 交叉轴的起点对齐                                   | <img src="Flex布局.assets/image-20201110111839386.png" alt="image-20201110111839386" style="zoom:25%;" /> |
-| `flex-end`         | 交叉轴的起点对齐                                   | <img src="Flex布局.assets/image-20201110111942974.png" alt="image-20201110111942974" style="zoom:25%;" /> |
-| `center`           | 交叉轴的中点对齐                                   | <img src="Flex布局.assets/image-20201110112003473.png" alt="image-20201110112003473" style="zoom:25%;" /> |
-| `baseline`         | **项目的第一行文字的基线对齐**                     | <img src="Flex布局.assets/image-20201110112020959.png" alt="image-20201110112020959" style="zoom:25%;" /> |
+| `stretch` (默认值) | 如果项目未设置高度或设为auto，将占满整个容器的高度 | <img src="images/image-20201110112035760.png" alt="image-20201110112035760" style="zoom:25%;" /> |
+| `flex-start`       | 交叉轴的起点对齐                                   | <img src="images/image-20201110111839386.png" alt="image-20201110111839386" style="zoom:25%;" /> |
+| `flex-end`         | 交叉轴的起点对齐                                   | <img src="images/image-20201110111942974.png" alt="image-20201110111942974" style="zoom:25%;" /> |
+| `center`           | 交叉轴的中点对齐                                   | <img src="images/image-20201110112003473.png" alt="image-20201110112003473" style="zoom:25%;" /> |
+| `baseline`         | **项目的第一行文字的基线对齐**                     | <img src="images/image-20201110112020959.png" alt="image-20201110112020959" style="zoom:25%;" /> |
 
 
 
@@ -196,12 +196,12 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 | 属性名             | 属性描述                                                     | 详情                                                         |
 | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `stretch` (默认值) | 轴线占满整个交叉轴                                           | <img src="Flex布局.assets/image-20201110111741343.png" alt="image-20201110111741343" style="zoom:25%;" /> |
-| `flex-start`       | 与交叉轴的起点对齐                                           | <img src="Flex布局.assets/image-20201110111543152.png" alt="image-20201110111543152" style="zoom: 25%;" /> |
-| `flex-end`         | 与交叉轴的终点对齐                                           | <img src="Flex布局.assets/image-20201110111626016.png" alt="image-20201110111626016" style="zoom:25%;" /> |
-| `center`           | 与交叉轴的中点对齐                                           | <img src="Flex布局.assets/image-20201110111641153.png" alt="image-20201110111641153" style="zoom:25%;" /> |
-| `space-between`    | 与交叉轴两端对齐，轴线之间的间隔平均分布                     | <img src="Flex布局.assets/image-20201110111700014.png" alt="image-20201110111700014" style="zoom:25%;" /> |
-| `space-around`     | 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍 | <img src="Flex布局.assets/image-20201110111718248.png" alt="image-20201110111718248" style="zoom:25%;" /> |
+| `stretch` (默认值) | 轴线占满整个交叉轴                                           | <img src="images/image-20201110111741343.png" alt="image-20201110111741343" style="zoom:25%;" /> |
+| `flex-start`       | 与交叉轴的起点对齐                                           | <img src="images/image-20201110111543152.png" alt="image-20201110111543152" style="zoom: 25%;" /> |
+| `flex-end`         | 与交叉轴的终点对齐                                           | <img src="images/image-20201110111626016.png" alt="image-20201110111626016" style="zoom:25%;" /> |
+| `center`           | 与交叉轴的中点对齐                                           | <img src="images/image-20201110111641153.png" alt="image-20201110111641153" style="zoom:25%;" /> |
+| `space-between`    | 与交叉轴两端对齐，轴线之间的间隔平均分布                     | <img src="images/image-20201110111700014.png" alt="image-20201110111700014" style="zoom:25%;" /> |
+| `space-around`     | 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍 | <img src="images/image-20201110111718248.png" alt="image-20201110111718248" style="zoom:25%;" /> |
 
 
 
@@ -233,7 +233,7 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 } /* 表示该项目在当前行的位次。如果是 -1 就在第一个 */
 ```
 
-<img src="Flex布局.assets/image-20201110112827823.png" alt="image-20201110112827823" style="zoom:50%;" />                                                                               <img src="Flex布局.assets/image-20201110112844544.png" alt="image-20201110112844544" style="zoom:50%;" />     
+<img src="images/image-20201110112827823.png" alt="image-20201110112827823" style="zoom:50%;" />                                                                               <img src="images/image-20201110112844544.png" alt="image-20201110112844544" style="zoom:50%;" />     
 
 ### 2. flex-grow 属性
 
@@ -247,7 +247,7 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 }
 ```
 
-<img src="Flex布局.assets/image-20201110113249334.png" alt="image-20201110113249334"  />
+<img src="images/image-20201110113249334.png" alt="image-20201110113249334"  />
 
 
 
@@ -309,7 +309,7 @@ Flex 布局首先要有个一个大的容器，称为 Flex 容器（flex contain
 
 ## 1. 骰子布局
 
-![image-20201110130937517](Flex布局.assets/image-20201110130937517.png)
+![image-20201110130937517](images/image-20201110130937517.png)
 
 HTML：
 
@@ -480,7 +480,7 @@ body {
 
 ### 2.1 基本网格布局
 
-<img src="Flex布局.assets/image-20201110133620246.png" alt="image-20201110133620246" style="zoom:80%;" />
+<img src="images/image-20201110133620246.png" alt="image-20201110133620246" style="zoom:80%;" />
 
 **要利用到 `flex-grow` 属性** => **如果所有项目的 flex-grow 属性都为1，则它们将等分剩余空间（如果有的话）。**
 
@@ -510,7 +510,7 @@ CSS：
 
 ### 2.2 百分比布局
 
-![image-20201110133931508](Flex布局.assets/image-20201110133931508.png)
+![image-20201110133931508](images/image-20201110133931508.png)
 
 HTML：
 
@@ -551,7 +551,7 @@ CSS：
 
 [圣杯布局](https://en.wikipedia.org/wiki/Holy_Grail_(web_design))（Holy Grail Layout）指的是一种最常见的网站布局。页面从上到下，分成三个部分：头部（header），躯干（body），尾部（footer）。其中躯干又水平分成三栏，从左到右为：导航、主栏、副栏。**如果是小屏幕，躯干的三栏自动变为垂直叠加。**
 
-<img src="Flex布局.assets/image-20201110134157032.png" alt="image-20201110134157032" style="zoom:80%;" />
+<img src="images/image-20201110134157032.png" alt="image-20201110134157032" style="zoom:80%;" />
 
 
 
@@ -614,7 +614,7 @@ footer {
 
 ## 3. 输入框布局
 
-![image-20201110174816112](Flex布局.assets/image-20201110174816112.png)
+![image-20201110174816112](images/image-20201110174816112.png)
 
 ```html
 <!DOCTYPE html>
@@ -649,7 +649,7 @@ footer {
 
 类似于电商网站的商品陈列，一个一个挤下去。
 
-![image-20201110175105559](Flex布局.assets/image-20201110175105559.png)  ![image-20201110175118881](Flex布局.assets/image-20201110175118881.png) ![image-20201110175138624](Flex布局.assets/image-20201110175138624.png)
+![image-20201110175105559](images/image-20201110175105559.png)  ![image-20201110175118881](images/image-20201110175118881.png) ![image-20201110175138624](images/image-20201110175138624.png)
 
 
 
