@@ -1,3 +1,13 @@
+# 内容概述
+
+1. JSX 本质是语法糖，通过 `React.createElement()` 方法转化成 js 语法。
+2. 子组件作为变量，HTML 标签作为字符串。
+3. `React.createElement()` 的参数分别是：
+   1. type：标签字符串/子组件变量
+   2. config：属性(src、classname等)
+   3. children：文本内容(通过变量渲染等方式)。
+4. ==注意 patch 的时机==：首次在 `ReactDOM.render()` 时，更新在 `setState` 时。
+
 # JSX 的本质
 
 - jsx 语法根本无法被浏览器解析。
@@ -44,9 +54,11 @@ react 的组件中都**需要引入 React **作为依赖。说明 React 在运�
   - **根据 props 初始化实例，然后执行实例的 render 函数**
   - render 函数最终还是返回 vnode 对象
 
+## 渲染流程
 
+<img src="images/image-20210205230759749.png" alt="image-20210205230759749" style="zoom:50%;" />
 
-## 总结
+# 总结
 
 - JSX 就是语法糖，需要被解析成 js 才能运行。
   - vue 中的模板也需要被解析成 js。
