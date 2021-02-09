@@ -281,7 +281,7 @@ place-content: <align-content> <justify-content>
 
 ```css
 grid-template: <grid-template-columns> <grid-template-rows> <grid-template-areas>
-grid: <grid-template> <grid-auto-rows> <grid-auto-columns> grid-auto-flow>
+grid: <grid-template> <grid-auto-rows> <grid-auto-columns> <grid-auto-flow>
 ```
 
 
