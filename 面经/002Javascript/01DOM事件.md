@@ -83,7 +83,27 @@ js 表示 HTML 节点：`document.documentElement`。
 
 `CustomEvent` ：第二个参数可以指定自定义的参数，其他用法和 `Event` 一模一样。
 
+实例：
 
+```html
+<body>
+  <div class="container" style="color: red">
+    <h1>hahahahahah</h1>
+    <textarea></textarea>
+  </div>
+</body>
+<script>
+  const container = document.querySelector('.container');
+  const textarea = document.querySelector('textarea');
+  const handler = new Event('handler');
+  document.addEventListener('handler', () => {
+    let color = container.style.color;
+    container.style.color = color === 'red' ? 'green' :'red';
+    textarea.innerHTML = Math.random();
+  });
+  setInterval(() => document.dispatchEvent(handler), 200);
+</script>
+```
 
 
 
