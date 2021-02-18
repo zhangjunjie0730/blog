@@ -221,27 +221,182 @@ function thunk({ getState }) {
 
 
 
+```js
+function App(){
+  return ...
+}
+
+const mapStateToProps = state => (
+	{ num: state }
+)
+const mapDispatchToProps = {
+	add: () => { type: 'add'},
+  minus: () => { type: 'minus' }
+}
+// 前两个改进了state和dispatch之后可以继续修改
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  // do something...
+  return { ...stateProps, ...dispatchProps, ...ownProps }
+}
+  
+export default connect(mapStateToProps, mapDispatchToPorps, mergeProps)(App);
+```
 
 
 
 
 
+这里的 `mapDispatchToProps` 有两种形式，可以是 `Object` 也可以是 `Function` 。
+
+```js
+
+```
+
+
+
+# `bindActionCreators`
+
+`bindActionCreators` 能将多个函数执行起转化成 `dispatch(action)` 的函数集合形式，这样就不用收到 `dispatch(actionCreator(type))` 的形式来调用方法了。
+
+例如，下面的是函数执行器 `actionCreator.js` ：
+
+```js
+// 对象形式
+export function addTodo(text) {
+	return {
+    type: 'ADD_TODO',
+    text
+  }
+}
+// 经过bindActionCreator后变成：
+{ addTodo: text => dispatch(addTodo('text')) };
+
+
+// 函数形式
+const toggleTodo = id => {
+  return {
+    type: 'TOGGLE_TODO',
+    id
+  }
+}
+export { toggleTodo };
+let boundActionCreators = bindActionCreators(toggleTodo, dispatch);
+// 经过bindActionCreator后变成：
+boundActionCreators = id => dispatch(toggleTodo(id));
+```
+
+
+
+## 实现 `bindActionCreators`
+
+```js
+function bindActionCreator(creator, dispatch){
+  return (...args) => dispatch(creator(...args));
+}
+
+export function bindActionCreators(creators, dispatch) {
+  const obj = {};
+  for(const key in creators) {
+		obj[key] = bindActionCreators(creators[key], dispatch);
+  }
+  return obj;
+}
+```
 
 
 
 
 
+# 实现 `react-redux`
+
+`react-redux` 核心就是两个 API，一个是 `connect` ，一个是 `Provider` 。 
+
+1. `Provider` ：包裹上所有的子组件，通过 `Context` 的方式，把 `value={store}` 传递给所有的子组件。
+2. 我们在子组件中，用 `connect` 创造一个高阶组件。传递过来 `value` 可以通过类组件中的 `contextType` 静态变量和 `this.context` 值获取到。
+3. 我们在 `componentDidMount` 这个生命周期函数中来处理 `state` 和 `dispatch` 更合适一些。
 
 
 
 
 
+```js
+import React, { Component } from 'react';
 
+const ValueContext = React.createContext();
 
+// Provider组件应该返回包裹着的被加工过的children
+// 数据用context传递
+export class Provider extends Component {
+  render() {
+    return (
+      <ValueContext.Provider value={this.props.store}>{this.props.children}</ValueContext.Provider>
+    );
+  }
+}
 
+// 实现核心：把store的数据传递出来
+export const connect = (
+  mapStateToProps = state => state,
+  mapDispatchToProps
+) => WrappedComponent => {
+  return class extends Component {
+    // this.context可以访问到 => store
+    static contextType = ValueContext;
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        // 因为更新state时会重新渲染，所以放在this.state中
+        props: {},
+      };
+    }
 
+    componentDidMount() {
+      const { subscribe } = this.context;
+      this.update();
+      // 如果说dispatch运行正常但是仍然不刷新，说明没监听！
+      subscribe(() => {
+        this.update();
+      });
+    }
 
+    update = () => {
+      const { dispatch, getState } = this.context;
+      let stateProps = mapStateToProps(getState());
+      let dispatchProps = { dispatch };
+
+      // 处理dispatch 两种格式 Object和Function
+      if (typeof mapDispatchToProps === 'object') {
+        dispatchProps = bindActionCreators(mapDispatchToProps, dispatch);
+      } else if (typeof mapDispatchToProps === 'function') {
+        dispatchProps = mapDispatchToProps(dispatch);
+      } else {
+        // 没写就默认
+        dispatchProps = { dispatch };
+      }
+
+      this.setState({
+        props: { ...stateProps, ...dispatchProps },
+      });
+    };
+
+    render() {
+      return <WrappedComponent {...this.props} {...this.state.props} />;
+    }
+  };
+};
+
+function bindActionCreator(creator, dispatch){
+  return (...args) => dispatch(creator(...args));
+}
+export function bindActionCreators(creators, dispatch) {
+  const obj = {};
+  for(const key in creators) {
+		obj[key] = bindActionCreators(creators[key], dispatch);
+  }
+  return obj;
+}
+```
 
 
 

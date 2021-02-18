@@ -63,6 +63,71 @@ nodejs 可以在本地进行调试，在终端输入 `node test.js`，就可以�
 
 <img src="images/image-20210122173206928.png" alt="image-20210122173206928"  />
 
+
+
+## 举例
+
+### 1. 首行规定总行数
+
+例题：[分葡萄](https://www.nowcoder.com/questionTerminal/14c0359fb77a48319f0122ec175c9ada)
+
+```js
+2
+1 2 3
+1 2 6
+```
+
+如果下面的 `1 2 3` 和 `1 2 6` 每行都输出相应的结果可以这样：
+
+```js
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+const input = [];
+rl.on('readline', line => {
+  input.push(line);
+  const n = parseInt(input[0]);
+  if(input.length === n+1) solution(input);
+  /*
+  * 此时的input如下：[
+  * "2",
+  * "1 2 3",
+  * "1 2 6",
+  * ]
+  * 所以记得用的时候用parseInt转一下！
+  */
+})
+
+function solution(input){
+  const n = parseInt(input[0]);
+  const res = [];
+  for(let i=1;i<n+1;i++){
+    // 将每一行都转成一个数组，用result函数进行处理，然后每行打印结果
+    const arr = input[i].split(" ").map(item => parseInt(item));
+    console.log(result(arr));
+  }
+}
+function result(arr){
+  ...
+  return res;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 # V8 版本
 
 ## 单行输入
